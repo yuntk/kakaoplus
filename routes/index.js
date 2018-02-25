@@ -1,6 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
+var mysql = require('mysql');
+var pool  = mysql.createPool({
+  connectionLimit : 100,
+  host            : 'localhost',
+  user            : 'root',
+  password        : 'qkqh7083',
+  database        : 'cyclist'
+});
+
 /* kakao plus friend main menu */
 router.get('/keyboard', (req,res,next)=>{
   let obj = {
@@ -26,12 +35,34 @@ router.get('/keyboard', (req,res,next)=>{
    * }
    */
 router.post('/message', (req,res,next)=>{
-  let obj = {
-    "message":{
-        "text" : req.body.content
-   }
-  }
-  res.send(obj)
+  var userkey = req.body.user_key;
+  var upurl = req.body.content;
+  var downurl = "http://example.com"+userkey
+  var sql = "insert into user(userkey,upurl,downurl) values(?,?,?)";
+  var arr = [userkey,upurl,downurl]
+  pool.getConnection((err, conn) => {
+    if(err) { console.log(err); return; }
+    conn.query(sql, arr, (err, result)=>{
+      conn.release();
+      if(err) { console.log(err); return; }
+      if(req.body.type=="photo"){
+        let obj = {
+          "message":{
+              "text" : downurl
+         }
+        }
+        res.send(obj)
+      }else{
+        let obj = {
+          "message":{
+              "text" : "사진을 올려주세요."
+         }
+        }
+        res.send(obj)
+      }
+    });
+  });
+  
 })
 
 module.exports = router;
