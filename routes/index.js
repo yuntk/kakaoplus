@@ -7,7 +7,7 @@ var pool  = mysql.createPool({
   host            : 'localhost',
   user            : 'root',
   password        : 'qkqh7083',
-  database        : 'cyclist'
+  database        : 'kakaoapi'
 });
 
 /* kakao plus friend main menu */
@@ -38,7 +38,7 @@ router.post('/message', (req,res,next)=>{
   var userkey = req.body.user_key;
   var upurl = req.body.content;
   var downurl = "http://example.com"+userkey
-  var sql = "insert into user(userkey,upurl,downurl) values(?,?,?)";
+  var sql = "insert into imagelist(userkey,upurl,downurl) values(?,?,?)";
   var arr = [userkey,upurl,downurl]
   pool.getConnection((err, conn) => {
     if(err) { console.log(err); return; }
