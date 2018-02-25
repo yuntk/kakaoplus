@@ -25,7 +25,7 @@ router.get('/keyboard', (req,res,next)=>{
    *    "content": "http://photo_url/number.jpg"
    * }
    */
-router.post('/massage', (req,res,next)=>{
+router.post('/message', (req,res,next)=>{
   let obj = {
     "message":{
         "text" : req.body.content
