@@ -57,7 +57,7 @@ router.post('/message', (req,res,next)=>{
         if(err) { console.log(err); return; }
         let obj = {
           "message":{
-              "text" : "사진 변환에는 30초정도 걸립니다. 잠시후에 아래 링크를 클릭해주세요. \n"+downurl,
+              "text" : "사진이 반영 되는데에는 30초정도 걸립니다. 30초후에 아래 링크를 클릭해주세요. \n다른 스타일을 원하시면 아무 메세지나 입력하시고, 다시 사진을 업로드 해주세요.\n"+downurl,
           }
         }
         res.send(obj)   
