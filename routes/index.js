@@ -75,11 +75,7 @@ router.post('/message', (req,res,next)=>{
       var obj = {
         "message":{
           "text" : "위에서부터 1번 그림입니다.",
-          "photo": {
-            "url": "http://13.124.76.13:3001/images/paint.png",
-            "width": 640,
-            "height": 2800
-          }
+          
         },
         "keyboard" : {
           "type" : "buttons",
@@ -104,6 +100,11 @@ router.post('/message', (req,res,next)=>{
       var obj = {
         "message":{
             "text" : "사진을 올려주세요. 다른 스타일을 원하면 아무 메세지나 입력하세요."
+        },
+        "photo": {
+          "url": "http://13.124.76.13:3001/images/paint"+msg[0]+".png",
+          "width": 640,
+          "height": 640
         }
       }
       res.send(obj)
