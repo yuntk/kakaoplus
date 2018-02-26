@@ -37,31 +37,33 @@ router.get('/keyboard', (req,res,next)=>{
 router.post('/message', (req,res,next)=>{
   var userkey = req.body.user_key;
   var upurl = req.body.content;
-  var downurl = "http://example.com"+userkey
+  var downurl = "http://13.124.76.13:3001/"+userkey+"out.jpg"
   var sql = "insert into imagelist(userkey,upurl,downurl) values(?,?,?)";
   var arr = [userkey,upurl,downurl]
-  pool.getConnection((err, conn) => {
-    if(err) { console.log(err); return; }
-    conn.query(sql, arr, (err, result)=>{
-      conn.release();
+  if(req.body.type=="photo"){
+    pool.getConnection((err, conn) => {
       if(err) { console.log(err); return; }
-      if(req.body.type=="photo"){
+      conn.query(sql, arr, (err, result)=>{
+        conn.release();
+        if(err) { console.log(err); return; }
         let obj = {
           "message":{
               "text" : downurl
-         }
+          }
         }
-        res.send(obj)
-      }else{
-        let obj = {
-          "message":{
-              "text" : "사진을 올려주세요."
-         }
-        }
-        res.send(obj)
+        res.send(obj)   
+      });
+    });  
+  }else{
+    let obj = {
+      "message":{
+          "text" : "사진을 올려주세요."
       }
-    });
-  });
+    }
+    res.send(obj)
+  }
+  res.send(obj)
+}
   
 })
 
