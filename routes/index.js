@@ -62,9 +62,6 @@ router.post('/message', (req,res,next)=>{
     }
     res.send(obj)
   }
-  res.send(obj)
-}
-  
-})
+});
 
 module.exports = router;
