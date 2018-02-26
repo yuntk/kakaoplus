@@ -13,7 +13,6 @@ var pool  = mysql.createPool({
 /* kakao plus friend main menu */
 router.get('/keyboard', (req,res,next)=>{
   let obj = {
-    "keyboard" : {
       "type" : "buttons",
       "buttons" : [
         "1.Rain Princesss, by Leonid Afremov",
@@ -24,7 +23,6 @@ router.get('/keyboard', (req,res,next)=>{
         "6.The Shipwreck of the Minotaur, by J.M.W. Turner"
       ]
     }
-  }
   res.send(obj)
 })
 
